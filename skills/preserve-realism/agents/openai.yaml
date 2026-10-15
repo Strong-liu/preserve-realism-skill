@@ -1,0 +1,4 @@
+interface:
+  display_name: "Preserve Realism · 写实保真"
+  short_description: "Keep faces, skin, and materials photographic"
+  default_prompt: "使用 $preserve-realism 改写我的写实素材提示词，保留人脸和自然纹理，并说明如何检查结果。"
