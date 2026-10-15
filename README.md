@@ -1,2 +1,144 @@
-# preserve-realism-skill
-A portable skill for photographic realism, face preservation, and natural texture.
+# Preserve Realism · 写实素材保真
+
+为 AI 助手提供可复用的写实素材工作流：改写提示词、指导图片生成与编辑，并根据实际提供的素材检查人脸、皮肤、材质和视频连续性。
+
+第一版以图片为主，兼顾视频。覆盖从零生成写实人物和编辑已有真人照片，重点处理卡通化、塑料皮肤、纹理丢失以及人物漂移。
+
+版本：`0.1.0` · 许可证：[MIT](LICENSE)
+
+## 快速使用
+
+安装后，在支持相应调用方式的助手里提出任务：
+
+```text
+使用 preserve-realism 改写下面的提示词，让人物保持摄影真实感和自然皮肤细节。
+原提示词：一个坐在咖啡馆窗边的人，半身构图，柔和窗光。
+只给我可直接复制的中文提示词。
+```
+
+编辑已有照片时，提供原图和明确的修改要求：
+
+```text
+使用 preserve-realism。以我附的原图为身份参考，只换成街道背景。
+保留面貌和可见皮肤纹理，必要的环境光可以调整。
+先给编辑提示词；我提供结果后，再帮我对比检查。
+```
+
+结果检查可以单独使用。提供原图和结果图时，说明它们各自的用途；如果只提供结果，助手可以检查摄影外观，但不能证明与某个原始人物一致。
+
+## 能做什么
+
+| 任务 | 输出 |
+| --- | --- |
+| 从零生成写实图片 | 主体、构图、光线和相关材质要求组成的提示词 |
+| 编辑真人照片 | 修改项、保留项及必要的参考图和区域控制建议 |
+| 改写已有提示词 | 保留画面意图，解决风格冲突与模糊要求 |
+| 检查结果 | 基于实际可见素材的观察和修订建议 |
+| 视频提示词与检查 | 动作、镜头、人物连续性约束及回看方法 |
+
+像素尺寸、可用清晰度、自然真实感和身份保真分别处理。提示词中写“8K”不会替代文件尺寸核对；生成性增强的新细节也不能当作原始纹理的真实恢复。
+
+## 通用设计
+
+核心使用标准 `SKILL.md` 与 Markdown 参考文档，不绑定单一图片模型，不依赖密钥或专有参数。格式依据 [Agent Skills 规范](https://agentskills.io/specification)。
+
+支持原生 skill 的助手可以读取文件夹；其他聊天工具可以手动接收指令；仅接受生成提示词的工具则使用助手输出的文本和参考图。具体参数按工具实际能力适配。
+
+**状态说明：**已完成本地格式与文件检查，记录见 [验证说明](docs/VALIDATION.md)。本版尚未在不同助手中独立试用，也未完成实际生图或视频的效果对比。符合开放格式不代表每个平台都具备原生 skill 功能。
+
+## 安装
+
+### Codex：项目内安装
+
+将 `skills/preserve-realism/` 整个文件夹复制到目标项目的 `.agents/skills/`，形成：
+
+```text
+你的项目/
+└── .agents/
+    └── skills/
+        └── preserve-realism/
+            ├── SKILL.md
+            ├── LICENSE
+            ├── agents/
+            │   └── openai.yaml
+            └── references/
+                ├── image-workflows.md
+                ├── video-consistency.md
+                └── examples-and-review.md
+```
+
+从该项目启动 Codex，使用自然语言请求，或显式提及：
+
+```text
+$preserve-realism 帮我改写这个写实人物提示词，保留自然纹理。
+```
+
+如果新增 skill 没有出现，重新启动客户端并核对加载位置。项目内加载路径及调用说明见 [Codex 官方文档](https://learn.chatgpt.com/docs/build-skills)。已有同名目录时，先比较内容再决定如何更新，避免直接覆盖个人修改。
+
+### Claude Code：项目内安装
+
+将同一完整文件夹复制到目标项目的 `.claude/skills/preserve-realism/`，然后使用：
+
+```text
+/preserve-realism 帮我写一个自然、真实的人物摄影提示词。
+```
+
+加载与调用方式见 [Claude Code 官方文档](https://code.claude.com/docs/en/skills)。`agents/openai.yaml` 是可选的 OpenAI 界面元数据，核心规则不依赖它。
+
+### 其他聊天或生成工具：手动使用
+
+向能阅读文档的助手提供 `SKILL.md` 正文，以及本次任务所需的参考文件；可上传相关文件，也可以粘贴内容。只提供带路径的主文件，但助手无法读取对应文件时，需要同时提供参考内容。
+
+然后说明：
+
+```text
+请依据我提供的 Preserve Realism 工作流处理下面的任务。
+任务：给原照片换衣服，保持人物面貌和自然皮肤纹理。
+只生成编辑提示词与必要的操作建议，先不执行生成。
+```
+
+把最终提示词和实际需要的参考图送入生成工具。模型支持哪些输入或参数，以该工具文档和界面为准。
+
+## 文件结构
+
+```text
+preserve-realism-skill/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── docs/
+│   ├── PROJECT_PLAN.md
+│   ├── HOW_IT_WORKS.md
+│   ├── PUBLISH_TO_GITHUB.md
+│   ├── TEST_CASES.md
+│   └── VALIDATION.md
+└── skills/
+    └── preserve-realism/
+        ├── SKILL.md
+        ├── LICENSE
+        ├── agents/openai.yaml
+        └── references/
+            ├── image-workflows.md
+            ├── video-consistency.md
+            └── examples-and-review.md
+```
+
+三份参考文档按任务读取；仓库的说明与教程用于人类阅读，不需要全部加载进助手上下文。
+
+## 如何继续改进
+
+先用 [测试场景](docs/TEST_CASES.md) 检查触发、任务范围和素材依据，再用实际结果检验效果。反馈时记录任务、提示词、工具版本、可控设置、观察到的问题和素材覆盖范围。
+
+修改关键决策规则，而不是给每次失败追加一长串禁用词。只有经过测试的兼容环境和效果案例，才标为已验证。
+
+## 制作与发布教程
+
+- [这个 skill 是怎样制作的](docs/HOW_IT_WORKS.md)：主文件、触发描述、参考文件与测试的作用。
+- [发布到自己的 GitHub](docs/PUBLISH_TO_GITHUB.md)：网页上传步骤，以及可选 Git 方式。
+- [项目策划](docs/PROJECT_PLAN.md)：需求、设计和第一版完成标准。
+
+## 许可证
+
+用户已为本项目选择 MIT。允许使用、修改和分发，包括商业用途，需要保留版权和许可声明。具体条款以 [LICENSE](LICENSE) 为准；许可摘要可参考 [MIT 说明](https://choosealicense.com/licenses/mit/)。
+
+版权行采用项目署名 `Preserve Realism contributors`；维护者可在发布前换成希望公开使用的署名。以后增加示例素材时，单独说明素材来源和适用授权。

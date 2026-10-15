@@ -1,0 +1,12 @@
+# Local test inputs and generated outputs
+/private-media/
+/test-runs/
+/work/
+/outputs/
+
+# Local configuration and caches
+.env
+.env.*
+__pycache__/
+.DS_Store
+Thumbs.db
