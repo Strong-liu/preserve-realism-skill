@@ -2,6 +2,8 @@
 
 本教程对应 `preserve-realism-skill` 第一版，适合先用网页完成发布。操作依据在 2026-10-15 核对的 GitHub 官方文档。
 
+`0.2.0` 增加 `skills/scene-zine-poster/` 及相关文档，实际目录以新版 README 为准。更新已有仓库时，上传新版中需要更新的内容，保留 `skills/` 层级。
+
 ## 1. 准备上传内容
 
 下载项目压缩包并解压，打开 `preserve-realism-skill` 文件夹。仓库根目录应包含 `README.md`、`LICENSE`、`.gitignore`、`docs/` 和 `skills/`。
@@ -30,6 +32,8 @@ MIT 的使用、修改和分发权限及保留声明要求，以许可证全文�
 ## 3. 上传文件与文件夹
 
 在仓库首页选择 **Add file → Upload files**。打开本地解压后的项目文件夹，将其中的文件与 `docs/`、`skills/` 文件夹拖入上传区域。
+
+`choose your files` 打开的通常是文件选择框；文件夹使用 Windows 文件资源管理器拖入网页上传区域。
 
 在预览列表中核对路径：
 

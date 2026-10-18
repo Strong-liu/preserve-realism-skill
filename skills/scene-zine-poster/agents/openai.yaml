@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scene Zine · 实景拼贴海报"
+  short_description: "Compose photo, torn paper, ink, and emotion"
+  default_prompt: "使用 $scene-zine-poster，根据我提供的照片或场景与海报情绪，创作实景拼贴海报。"
