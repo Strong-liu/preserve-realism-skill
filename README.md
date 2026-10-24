@@ -4,11 +4,11 @@
 
 图片为主，兼顾视频。摄影工作流处理卡通化、塑料皮肤、纹理丢失与人物漂移；拼贴工作流用摄影主体、顺景撕纸、抽象延伸和留白表达情绪。
 
-仓库版本：`0.2.0` · 许可证：[MIT](LICENSE)
+仓库版本：`0.3.0` · 许可证：[MIT](LICENSE)
 
 | Skill | 版本 | 适用任务 |
 | --- | --- | --- |
-| [preserve-realism](skills/preserve-realism/SKILL.md) | `0.1.1` | 写实生成、真人编辑、自然纹理与人物构图 |
+| [preserve-realism](skills/preserve-realism/SKILL.md) | `0.2.0` | 写实生成、真人编辑、局部肤质与眼部光影、人物构图 |
 | [scene-zine-poster](skills/scene-zine-poster/SKILL.md) | `0.1.0` | 根据照片或场景及情绪，创作实景拼贴海报 |
 
 两个 skill 可分别使用。海报中的摄影部分仍保持真实，新增纸面和插画区域可以有明确的平面风格。
@@ -32,6 +32,16 @@
 ```
 
 希望人物更突出时，明确景别和背景权重，例如“腰部以上构图，人物放大，保留湖面与蓝天线索，背景取景收紧”。
+
+帅哥、美女的真实感优化：
+
+```text
+使用 preserve-realism 优化这张人像。保留同一人物的漂亮造型、表情、景别与光线。
+先检查眼睛、鼻部高光和双颊的过渡，再选择实际需要修订的局部材质。
+保持自然淡妆，不新增皮肤标记，不靠粗毛孔、变老或变丑显示处理效果。
+```
+
+`preserve-realism` 的人物真实性任务沿用摄影表达；实景拼贴由 `scene-zine-poster` 在用户要求海报时处理。进行前后对比时保存独立的基线和优化文件，基线已自然时也如实保留。方法见 [人像真实感](skills/preserve-realism/references/portrait-realism.md)。
 
 实景拼贴海报：
 
@@ -62,7 +72,7 @@
 
 支持原生 skill 的助手可以读取文件夹；其他聊天工具可以手动接收指令；仅接受生成提示词的工具则使用助手输出的文本和参考图。具体参数按工具实际能力适配。
 
-**状态说明：**本地格式检查与实际视觉试用分别记录，见 [0.2.0 验证记录](docs/VALIDATION_V0.2.0.md)。首张云龙湖游客照曾出现主体偏小、背景取景过宽的问题，`0.1.1` 已补充相应的构图判断。符合开放格式不代表每个平台都具备原生 skill 功能。
+**状态说明：**本地格式检查与实际视觉试用分别记录，见 [0.3.0 人像验证记录](docs/VALIDATION_V0.3.0.md) 和 [0.2.0 拼贴记录](docs/VALIDATION_V0.2.0.md)。`preserve-realism` 0.2.0 增加局部材质和眼部判断，以及可核对的人物对比方法。符合开放格式不代表每个平台都具备原生 skill 功能，少量实例也不证明普遍提升。
 
 ## 安装
 
@@ -82,7 +92,8 @@
             └── references/
                 ├── image-workflows.md
                 ├── video-consistency.md
-                └── examples-and-review.md
+                ├── examples-and-review.md
+                └── portrait-realism.md
 ```
 
 从该项目启动 Codex，使用自然语言请求，或显式提及：
@@ -138,6 +149,7 @@ preserve-realism-skill/
 │   ├── TEST_CASES.md
 │   ├── VALIDATION.md
 │   ├── VALIDATION_V0.2.0.md
+│   ├── VALIDATION_V0.3.0.md
 │   └── SCENE_ZINE_DESIGN.md
 └── skills/
     ├── preserve-realism/
@@ -147,7 +159,8 @@ preserve-realism-skill/
     │   └── references/
     │       ├── image-workflows.md
     │       ├── video-consistency.md
-    │       └── examples-and-review.md
+    │       ├── examples-and-review.md
+    │       └── portrait-realism.md
     └── scene-zine-poster/
         ├── SKILL.md
         ├── LICENSE
